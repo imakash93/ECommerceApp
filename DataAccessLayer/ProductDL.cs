@@ -1,34 +1,46 @@
 ﻿using DataAccessLayer.DBContext;
+using Microsoft.EntityFrameworkCore;
 using SharedLayer.DataContracts;
 using SharedLayer.DTO;
 using SharedLayer.Infra;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
     public class ProductDL : IProductDL
     {
 
+
         public ProductDL(InventoryDbContext productDbContext)
         {
             this.productDbContext = productDbContext;
+        }
+
+        public ProductDL()
+        {
         }
 
         public InventoryDbContext productDbContext { get; private set; }
 
         public IList<ProductDTO> GetProducts()
         {
-
-            List<ProductDTO> products = new List<ProductDTO>()
-            {
-                new ProductDTO { Name = "Tom" }
-
-            };
-            OperationResult<List<ProductDTO>> result = new OperationResult<List<ProductDTO>> { Result = products, ErrorMessage = null, StatusCode = "500" };
-             productDbContext.addProducts(products);
-            var aa = productDbContext.getProducts();
-            return aa;
+            return productDbContext.Products.ToList<ProductDTO>();
         }
+
+        public  ProductDTO GetProduct(int id)
+        {
+            var productDTO =  productDbContext.Products.Find(id);
+
+            if (productDTO == null)
+            {
+                return null;
+            }
+
+            return productDTO;
+        }
+     
     }
 }

@@ -9,12 +9,12 @@ namespace BusinessLayer
     public class CartBL : ICartBL
     {
 
+        public ICartDL cartDL { get; private set; }
+
         public CartBL(ICartDL cartDL)
         {
             this.cartDL = cartDL;
         }
-
-        public ICartDL cartDL { get; private set; }
 
         public IList<CartDTO> GetCart()
         {

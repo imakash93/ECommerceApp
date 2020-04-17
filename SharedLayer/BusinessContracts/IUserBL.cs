@@ -7,5 +7,9 @@ namespace SharedLayer.BusinessContracts
     {
         IList<UserDTO> GetUsers();
 
+        UserDTO GetUser(int id);
+
+        UserDTO CheckEmail(string email);
+
     }
 }

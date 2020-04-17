@@ -22,5 +22,14 @@ namespace BusinessLayer
             return null;
         }
 
+        public UserDTO GetUser(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserDTO CheckEmail(string email)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

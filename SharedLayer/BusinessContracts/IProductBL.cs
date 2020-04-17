@@ -6,6 +6,7 @@ namespace SharedLayer.BusinessContracts
     public interface IProductBL
     {
         IList<ProductDTO> GetProducts();
+        ProductDTO GetProduct(int id);
 
     }
 }

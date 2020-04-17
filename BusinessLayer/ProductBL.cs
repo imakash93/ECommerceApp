@@ -16,10 +16,15 @@ namespace BusinessLayer
 
         public IProductDL productDL { get; private set; }
 
+        public ProductDTO GetProduct(int id)
+        {
+            this.productDL.GetProduct(id);
+            return null;
+        }
+
         public IList<ProductDTO> GetProducts()
         {
-            productDL.GetProducts();
-            return null;
+           return  productDL.GetProducts();
         }
 
     }

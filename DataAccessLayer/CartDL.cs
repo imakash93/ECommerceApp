@@ -4,31 +4,28 @@ using SharedLayer.DTO;
 using SharedLayer.Infra;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccessLayer
 {
     public class CartDL : ICartDL
     {
 
-        public CartDL(InventoryDbContext inventoryDbContext)
+        private readonly InventoryDbContext _context;
+
+        public CartDL(InventoryDbContext context)
         {
-            this.inventory = inventoryDbContext;
+            _context = context;
         }
+
 
         public InventoryDbContext inventory { get; private set; }
 
         public IList<CartDTO> GetCart()
         {
 
-            List<CartDTO> products = new List<CartDTO>()
-            {
-                new CartDTO { ProductId = 1 }
+            return  _context.Cart.ToList<CartDTO>();
 
-            };
-            //OperationResult<List<UserDTO>> result = new OperationResult<UserDTO> { Result = products, ErrorMessage = null, StatusCode = "500" };
-            // productDbContext.ad(products);
-            var aa = inventory.getCart();
-            return aa;
         }
     }
 }

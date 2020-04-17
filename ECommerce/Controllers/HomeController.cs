@@ -24,7 +24,6 @@ namespace ECommerce.Controllers
 
         public IActionResult Index()
         {
-            productBL.GetProducts();
             return View();
         }
 

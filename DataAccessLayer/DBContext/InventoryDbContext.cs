@@ -14,7 +14,7 @@ namespace DataAccessLayer.DBContext
 
         public InventoryDbContext(DbContextOptions<InventoryDbContext> options) : base(options)
         {
-            LoadDefault();
+            //LoadDefault();
         }
 
         public List<ProductDTO> getProducts() => Products.Local.ToList<ProductDTO>();
