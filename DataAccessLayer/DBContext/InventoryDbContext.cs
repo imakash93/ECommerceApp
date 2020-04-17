@@ -25,14 +25,5 @@ namespace DataAccessLayer.DBContext
             products.ForEach(product => Products.Add(product));
             return products;
         }
-
-        private void LoadDefault()
-        {
-            Products.Add(new ProductDTO { Name = "Tom" });
-            Products.Add(new ProductDTO { Name = "Arthur" });
-
-            Users.Add(new UserDTO { Name = "Tom" });
-            Users.Add(new UserDTO { Name = "Arthur" });
-        }
     }
 }

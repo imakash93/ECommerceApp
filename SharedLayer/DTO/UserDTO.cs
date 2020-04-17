@@ -10,7 +10,7 @@ namespace SharedLayer.DTO
 
         public string Name { get; set; }
 
-        public int Age { get; set; }
+        public long Phone { get; set; }
 
         public int Sex { get; set; }
 
@@ -18,6 +18,9 @@ namespace SharedLayer.DTO
 
         public bool IsActive { get; set; }
 
+        public string Password { get; set; }
+
+        public string Email { get; set; }
         public ICollection<CartDTO> Carts { get; set; }
-}
+    }
 }

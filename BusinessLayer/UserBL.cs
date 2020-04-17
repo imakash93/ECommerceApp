@@ -15,19 +15,17 @@ namespace BusinessLayer
             this.userDL = userDL;
         }
 
-
-        public IList<UserDTO> GetUsers()
-        {
-            userDL.GetUsers();
-            return null;
-        }
-
         public UserDTO GetUser(int id)
         {
             throw new System.NotImplementedException();
         }
 
         public UserDTO CheckEmail(string email)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IList<UserDTO> GetUsers()
         {
             throw new System.NotImplementedException();
         }

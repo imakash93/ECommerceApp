@@ -7,6 +7,9 @@ namespace SharedLayer.DataContracts
 {
    public interface IUserDL
     {
-        IList<UserDTO> GetUsers();
+        UserDTO GetUser(string email);
+
+
+        bool SaveUSer(UserDTO user);
     }
 }

@@ -9,26 +9,22 @@ namespace DataAccessLayer
 {
     public class UserDL : IUserDL
     {
+        public InventoryDbContext productDbContext { get; private set; }
 
         public UserDL(InventoryDbContext productDbContext)
         {
             this.productDbContext = productDbContext;
         }
 
-        public InventoryDbContext productDbContext { get; private set; }
-
-        public IList<UserDTO> GetUsers()
+        public UserDTO GetUser(string email)
         {
-
-            List<UserDTO> products = new List<UserDTO>()
-            {
-                new UserDTO { Name = "Tom" }
-
-            };
-            //OperationResult<List<UserDTO>> result = new OperationResult<UserDTO> { Result = products, ErrorMessage = null, StatusCode = "500" };
-            // productDbContext.ad(products);
-            var aa = productDbContext.getUsers();
+            var aa = productDbContext.Users.Find(email);
             return aa;
+        }
+
+        public bool SaveUSer(UserDTO user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

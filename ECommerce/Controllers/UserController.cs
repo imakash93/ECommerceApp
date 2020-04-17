@@ -12,11 +12,11 @@ namespace ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserDTOesController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly InventoryDbContext _context;
 
-        public UserDTOesController(InventoryDbContext context)
+        public UserController(InventoryDbContext context)
         {
             _context = context;
         }
