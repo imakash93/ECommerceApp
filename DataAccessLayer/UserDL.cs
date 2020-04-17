@@ -1,9 +1,8 @@
 ﻿using DataAccessLayer.DBContext;
 using SharedLayer.DataContracts;
 using SharedLayer.DTO;
-using SharedLayer.Infra;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccessLayer
 {
@@ -16,15 +15,22 @@ namespace DataAccessLayer
             this.productDbContext = productDbContext;
         }
 
-        public UserDTO GetUser(string email)
+        public UserDTO GetUser(int id)
         {
-            var aa = productDbContext.Users.Find(email);
-            return aa;
+            return productDbContext.Users.Find(id);
         }
 
-        public bool SaveUSer(UserDTO user)
+        public List<UserDTO> GetUsers()
         {
-            throw new NotImplementedException();
+            return productDbContext.Users.ToList<UserDTO>();
         }
+
+        public UserDTO SaveUSer(UserDTO user)
+        {
+            productDbContext.Users.Add(user);
+            productDbContext.SaveChangesAsync();
+            return user;
+        }
+
     }
 }

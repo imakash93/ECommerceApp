@@ -18,13 +18,12 @@ namespace BusinessLayer
 
         public ProductDTO GetProduct(int id)
         {
-            this.productDL.GetProduct(id);
-            return null;
+            return this.productDL.GetProduct(id);
         }
 
         public IList<ProductDTO> GetProducts()
         {
-           return  productDL.GetProducts();
+           return  this.productDL.GetProducts();
         }
 
     }

@@ -10,7 +10,6 @@ namespace SharedLayer.DTO
         [Key]
         public int Key { get; set; }
 
-
         // Foreign Key for Product
         public int ProductId { get; set; }
 

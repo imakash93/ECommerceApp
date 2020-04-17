@@ -5,11 +5,12 @@ namespace SharedLayer.BusinessContracts
 {
     public interface IUserBL
     {
-        IList<UserDTO> GetUsers();
-
         UserDTO GetUser(int id);
 
-        UserDTO CheckEmail(string email);
+        bool CheckEmail(string email);
+
+        UserDTO SaveUSer(UserDTO user);
+
 
     }
 }

@@ -3,6 +3,7 @@ using SharedLayer.BusinessContracts;
 using SharedLayer.DataContracts;
 using SharedLayer.DTO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BusinessLayer
 {
@@ -17,17 +18,20 @@ namespace BusinessLayer
 
         public UserDTO GetUser(int id)
         {
-            throw new System.NotImplementedException();
+            return this.userDL.GetUser(id);
         }
 
-        public UserDTO CheckEmail(string email)
+        public bool CheckEmail(string email)
         {
-            throw new System.NotImplementedException();
+            var users = this.userDL.GetUsers();
+            var user = users.Any(e => e.Email == email);
+            return user ? true : false;
         }
 
-        public IList<UserDTO> GetUsers()
+        public UserDTO SaveUSer(UserDTO user)
         {
-            throw new System.NotImplementedException();
+            this.userDL.SaveUSer(user);
+            return user;
         }
     }
 }

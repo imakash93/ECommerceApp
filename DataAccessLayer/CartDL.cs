@@ -27,5 +27,17 @@ namespace DataAccessLayer
             return  _context.Cart.ToList<CartDTO>();
 
         }
+
+        public bool RemoveCartItem(CartDTO item)
+        {
+             _context.Cart.Remove(item);
+            return true;
+        }
+
+        public bool AddToCart(IList<CartDTO> items)
+        {
+            _context.Cart.AddRange(items);
+            return true;
+        }
     }
 }

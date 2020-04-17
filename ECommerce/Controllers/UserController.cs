@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.DBContext;
 using SharedLayer.DTO;
+using BusinessLayer;
 
 namespace ECommerce.Controllers
 {
@@ -14,97 +15,38 @@ namespace ECommerce.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly InventoryDbContext _context;
+        public UserBL userBL { get; set; }
 
-        public UserController(InventoryDbContext context)
+        public UserController(UserBL userBL)
         {
-            _context = context;
+            this.userBL = userBL;
         }
 
-        // GET: api/UserDTOes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
-        // GET: api/UserDTOes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUserDTO(int id)
+        public UserDTO GetUserDTO(int id)
         {
-            var userDTO = await _context.Users.FindAsync(id);
+            var userDTO =  userBL.GetUser(id);
 
             if (userDTO == null)
             {
-                return NotFound();
+                return null;
             }
 
             return userDTO;
         }
 
-        // PUT: api/UserDTOes/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserDTO(int id, UserDTO userDTO)
+        [HttpGet("{email}")]
+        public  bool checkEmail(string email)
         {
-            if (id != userDTO.Key)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(userDTO).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserDTOExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var userDTO = userBL.CheckEmail(email);
+            return userDTO;
         }
 
-        // POST: api/UserDTOes
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUserDTO(UserDTO userDTO)
+        public UserDTO PostUserDTO(UserDTO userDTO)
         {
-            _context.Users.Add(userDTO);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUserDTO", new { id = userDTO.Key }, userDTO);
-        }
-
-        // DELETE: api/UserDTOes/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<UserDTO>> DeleteUserDTO(int id)
-        {
-            var userDTO = await _context.Users.FindAsync(id);
-            if (userDTO == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(userDTO);
-            await _context.SaveChangesAsync();
-
+            userBL.SaveUSer(userDTO);
             return userDTO;
-        }
-
-        private bool UserDTOExists(int id)
-        {
-            return _context.Users.Any(e => e.Key == id);
         }
     }
 }

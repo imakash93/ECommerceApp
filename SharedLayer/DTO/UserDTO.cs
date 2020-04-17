@@ -21,6 +21,7 @@ namespace SharedLayer.DTO
         public string Password { get; set; }
 
         public string Email { get; set; }
+
         public ICollection<CartDTO> Carts { get; set; }
     }
 }
