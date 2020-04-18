@@ -22,7 +22,7 @@ namespace BusinessLayer
             return null;
         }
 
-        public bool RemoveCartItems(CartDTO item)
+        public bool RemoveCartItems(IList<CartDTO> item)
         {
             this.cartDL.RemoveCartItem(item);
             return true;

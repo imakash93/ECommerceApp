@@ -8,23 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using DataAccessLayer.DBContext;
 using SharedLayer.DTO;
 using BusinessLayer;
+using SharedLayer.BusinessContracts;
 
 namespace ECommerce.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartDTOesController : ControllerBase
+    public class CartController : ControllerBase
     {
-        public CartBL cartBL { get; set; }
+        public ICartBL cartBL { get; set; }
 
-        public CartDTOesController(CartBL cartBL)
+        public CartController(ICartBL cartBL)
         {
             this.cartBL = cartBL;
         }
 
 
-        [HttpGet]
-        public IList<CartDTO> GetCart()
+        [HttpGet("GetCart")]
+        public IList<CartDTO> GetCart(int userID)
         {
             return  cartBL.GetCart();
         }
@@ -39,11 +40,12 @@ namespace ECommerce.Controllers
 
         // DELETE: api/CartDTOes/5
         [HttpDelete("{id}")]
-        public CartDTO DeleteCartDTO(CartDTO item)
+        public IList<CartDTO> DeleteCartDTO(IList<CartDTO> item)
         {
             this.cartBL.RemoveCartItems(item);
             return item;
         }
+
 
     }
 }

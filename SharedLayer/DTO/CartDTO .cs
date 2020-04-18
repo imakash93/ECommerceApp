@@ -20,7 +20,6 @@ namespace SharedLayer.DTO
 
         public int UserId { get; set; }
 
-
         public UserDTO User { get; set; }
 
         public bool IsWishlist { get; set; }

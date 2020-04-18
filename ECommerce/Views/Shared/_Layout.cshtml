@@ -234,12 +234,14 @@
     <script type="text/template" id="products-template">
         <div class="row products-container">
             {{#each products}}
-            <div class="col-sm-3">
+            <div class="col-sm-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <img class="card-img-top rounded-0" src={{url}} alt="Card image cap">
-                        <p class="card-text">{{name}}</p>
-                        <a href="#/product/{{id}}" class="card-link">{{id}}</a>
+                        <img class="card-img-top rounded-0" src={{imageUrl}} alt="Card image cap">
+                        <p class="card-text">{{Name}}</p>
+                        <p class="card-text">{{Price}}</p>
+                        <a href=' {{#productRoute}}{{Key}}{{/productRoute}}' class="card-link">{{key}}</a>
+
                         <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent" aria-expanded="false" aria-controls="collapseContent"></a>
                         <i class="fas fa-cart-plus  text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Add to Cart">
                         </i>
@@ -380,13 +382,15 @@
                 <div class="card mt-4">
                     <img class="card-img-top img-fluid" src="http://placehold.it/1" alt="">
                     <div class="card-body">
-                        <h3 class="card-title">Product Name</h3>
-                        <h4>$24.99</h4>
+                        <h3 class="card-title">{{name}}</h3>
+                        <h3 class="card-title id">{{key}}</h3>
+                        <h4>RS {{price}}</h4>
                         <span>
-                            <label>Qty : </label> <input type="number" value="0" min="0" max="1000" step="1" />
+                            <label>Qty : </label> <input type="number" class="quantity" value="1" min="1" max="{{quantity}}" step="1" />
                         </span>
                         <span>
-                            <button type="button" class="btn btn-sm btn-primary" disabled>Add to cart</button>
+
+                            <button type="button" class="btn btn-sm btn-primary add-to-cart">Add to cart</button>
                         </span>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
                         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
@@ -428,7 +432,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-email"></i></span>
                         </div>
-                        <input type="email" class="form-control" placeholder="email">
+                        <input type="email" class="form-control email" placeholder="email">
 
                     </div>
                     <div class="input-group form-group">
@@ -441,7 +445,7 @@
                         <input type="checkbox">Remember Me
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Login" class="btn float-right login_btn">
+                        <input value="Login" class="btn float-right login_btn">
                     </div>
                 </form>
             </div>
@@ -462,7 +466,7 @@
                 </div>
                 <div class="form-group col-md-7">
                     <label for="inputPhone">Phone</label>
-                    <input type="phone" class="form-control" id="inputPhone" placeholder="Phone">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
                 </div>
                 <div class="form-group col-md-7">
                     <label for="inputEmail">Email</label>
@@ -484,7 +488,9 @@
 
 
 
-    <script src="libs/jQuery3.5.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+            crossorigin="anonymous"></script>
     <script src="libs/Underscore1.10.2.js"></script>
     <script src="libs/backbone1.4.0.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"

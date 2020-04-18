@@ -33,5 +33,10 @@ namespace BusinessLayer
             this.userDL.SaveUSer(user);
             return user;
         }
+
+        public List<UserDTO> GetUsers()
+        {
+            return this.userDL.GetUsers();
+        }
     }
 }

@@ -27,6 +27,10 @@ namespace ECommerce
             services.AddControllersWithViews();
             services.AddScoped<IProductBL, ProductBL>();
             services.AddScoped<IProductDL, ProductDL>();
+            services.AddScoped<IUserBL, UserBL>();
+            services.AddScoped<IUserDL, UserDL>();
+            services.AddScoped<ICartBL, CartBL>();
+            services.AddScoped<ICartDL, CartDL>();
             services.AddDbContext<InventoryDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ECommerceContext")));
             services.AddScoped<InventoryDbContext>();
         }

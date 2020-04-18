@@ -28,7 +28,7 @@ namespace DataAccessLayer
         public UserDTO SaveUSer(UserDTO user)
         {
             productDbContext.Users.Add(user);
-            productDbContext.SaveChangesAsync();
+            productDbContext.SaveChanges();
             return user;
         }
 

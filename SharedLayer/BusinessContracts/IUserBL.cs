@@ -6,6 +6,7 @@ namespace SharedLayer.BusinessContracts
     public interface IUserBL
     {
         UserDTO GetUser(int id);
+        List<UserDTO> GetUsers();
 
         bool CheckEmail(string email);
 

@@ -1,3 +1,9 @@
+Handlebars.registerHelper("productRoute", function (route) {
+	return "#product/" + this.key;
+})
+
+var wishList = [];
+
 var DashboardView = Backbone.View.extend({
 	template: Handlebars.compile($("#dashboard-view-template").html()),
 	initialize: function () {
@@ -48,7 +54,26 @@ var ProductsView = Backbone.View.extend({
 	}
 });
 
+function me() {
+	debugger
+};
+
 var ProductView = Backbone.View.extend({
+	events: {
+		'click .add-to-cart': 'addToCart'
+	},
+
+	addToCart: function () {
+		debugger;
+		var items = $('.quantity').val();
+		var id = $('.id').html();
+		var wishList = localStorage.getItem("wishList");
+		me();
+		if (wishList == null || wishList.length == 0) {
+
+		}
+		localStorage.setItem("wishList", JSON.stringify(wishList));
+	},
 	template: Handlebars.compile($("#product-template").html()),
 	initialize: function (options) {
 		this.listenTo(this.model, "reset change", this.render);
@@ -78,13 +103,27 @@ var cartView = Backbone.View.extend({
 		this.listenTo(this.collection, "reset change", this.render);
 		this.collection = new models.CartModel();
 		var self = this;
-		// this.collection.fetch({
-		//   success: function () {
-		//     console.log(self.collection);
-		// self.render();
+		//$.ajax({
+		//	url: "/api/CartDTOes/GetCart/1",
+		//	type: 'GET',
+		//	success: function (res) {
+		//		debugger;
+		//		console.log(res);
+		//		alert(res);
+		//	}
+		//});
+		this.collection.fetch({
+			url: "/api/Cart/GetCart/1",
+			success: function () {
+				debugger;
+				console.log(self.collection);
+				self.render();
 
-		//   }
-		// });
+			},
+			error: function (user) {
+				alert(JSON.stringify(user));
+			}
+		});
 		this.render();
 	},
 	handleSuccess: function (options) {
@@ -202,8 +241,9 @@ var LoginView = Backbone.View.extend({
 		debugger;
 		this.model.set("email", $(".email").val());
 		this.model.set("password", $(".password").val());
-		this.fetch({
-			url: "api/Login/" + $(".email").val() + " " + $(".password").val() ;
+		this.model.fetch({
+			url: "api/User/GetUser/" + $(".password").val(),
+			//, " + $(".password").val() 
 			success: function (user) {
 				alert(JSON.stringify(user));
 			},
@@ -215,16 +255,8 @@ var LoginView = Backbone.View.extend({
 
 	initialize: function () {
 		debugger;
-		this.listenTo(this.model, 'reset change', this.render);
 		this.model = new models.UserModel();
 		var self = this;
-		this.model.fetch({
-			success: function () {
-				console.log(self.model);
-				self.render();
-
-			}
-		});
 		this.render();
 	},
 	render: function () {
@@ -241,73 +273,82 @@ var UserRegistrationView = Backbone.View.extend({
 		"click .submit": "registerUser"
 	},
 
-	validate: function (attrs) {
-		if (!attrs.name) {
-			return 'Name is required';
-		}
-		else if (!attrs.phone) {
-			return 'Phone is required';
-		}
-		else if (!attrs.password || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)) {
-			return 'Invalid Password';
-		}
-		else if (!attrs.password) {
-			return 'Invalid PAssword';
-		}
-		else if (attrs.password) {
-			return 'Password is required';
-		}
-		else if (!attrs.email || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)) {
-			return 'Email is required';
-		}
-		else if (!attrs.address) {
-			return 'Address is required';
-		}
-	},
+	//validate: function (attrs) {
+	//	if (!attrs.name) {
+	//		return 'Name is required';
+	//	}
+	//	else if (!attrs.phone) {
+	//		return 'Phone is required';
+	//	}
+	//	else if (!attrs.password || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)) {
+	//		return 'Invalid Password';
+	//	}
+	//	else if (!attrs.password) {
+	//		return 'Invalid PAssword';
+	//	}
+	//	else if (attrs.password) {
+	//		return 'Password is required';
+	//	}
+	//	else if (!attrs.email || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)) {
+	//		return 'Email is required';
+	//	}
+	//	else if (!attrs.address) {
+	//		return 'Address is required';
+	//	}
+	//},
 
-	vaildateFields(attrs) {
-		if (!attrs.name) {
-			return "Name is required";
-		} else if (!attrs.phone) {
-			return "Phone is required";
-		} else if (
-			!attrs.password ||
-			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)
-		) {
-			return "Invalid Password";
-		} else if (!attrs.password) {
-			return "Invalid PAssword";
-		} else if (attrs.password) {
-			return "Password is required";
-		} else if (
-			!attrs.email ||
-			/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)
-		) {
-			return "Email is required";
-		} else if (!attrs.address) {
-			return "Address is required";
-		} else {
-			return "valid";
-		}
-	},
+	//vaildateFields(attrs) {
+	//	if (!attrs.name) {
+	//		return "Name is required";
+	//	} else if (!attrs.phone) {
+	//		return "Phone is required";
+	//	} else if (
+	//		!attrs.password ||
+	//		/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)
+	//	) {
+	//		return "Invalid Password";
+	//	} else if (!attrs.password) {
+	//		return "Invalid PAssword";
+	//	} else if (attrs.password) {
+	//		return "Password is required";
+	//	} else if (
+	//		!attrs.email ||
+	//		/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)
+	//	) {
+	//		return "Email is required";
+	//	} else if (!attrs.address) {
+	//		return "Address is required";
+	//	} else {
+	//		return "valid";
+	//	}
+	//},
 
 	registerUser: function (e) {
 		debugger;
 		this.model.set("name", $("#inputName").val());
-		this.model.set("phone", $("#inputPhone").val());
+		this.model.set("phone", parseInt($("#inputPhone").val()));
 		this.model.set("email", $("#inputEmail").val());
 		this.model.set("address", $("#inputAddress").val());
 		this.model.set("password", $("#inputPassword").val());
-		var isValid = this.vaildateFields(this.model.attributes);
-
-		// this.save({
-		//     success: function (user) {
-		//         alert(JSON.stringify(user));
-		//     },
-		//     error: function (user) {
-		//       alert(JSON.stringify(user));
-		//   }
-		// });
+		//var isValid = this.vaildateFields(this.model.attributes);
+	
+	
+		$.ajax({
+			url: 'api/User/PostUser/',
+			type: 'PUT',
+			contentType: 'application/json',
+			data: JSON.stringify(this.model),
+			dataType: 'text',
+			error: function (xhr) {
+				debugger;
+				alert('Error: ' + xhr.statusText);
+			},
+			success: function (result) {
+				CheckIfInvoiceFound(result);
+			},
+			async: true,
+			processData: false
+		});
 	},
 
 	initialize: function () {
@@ -334,68 +375,59 @@ var UserRegistrationView = Backbone.View.extend({
 var models = {};
 
 models.ProductModel = Backbone.Model.extend({
-	//url: "https://jsonplaceholder.typicode.com/posts?userId=",
 	url: "  api/Products/"
 });
 
 models.ProductsModel = Backbone.Collection.extend({
-	//// url: "https://jsonplaceholder.typicode.com/users",
-	////url: "  https://jsonplaceholder.typicode.com/photos",
-	url: "  api/Products",
+	url: "api/Products",
 	model: models.ProductModel
 });
 
 models.CartModel = Backbone.Collection.extend({
-	url: "https://jsonplaceholder.typicode.com/users",
-	model: models.ProductsModel
+	defaults: {
+        productId :"",
+        quantity: 1,
+		UserId: 2,
+		isWishlist:true
+	}
 });
 
 models.WishlistModel = Backbone.Collection.extend({
-	url: "https://jsonplaceholder.typicode.com/users",
 	model: models.ProductsModel
 });
 
 models.UserModel = Backbone.Model.extend({
-	urlRoot: "/user",
+	url: "api/User/PostUser",
 	defaults: {
-		name: "",
-		email: "",
-		address: "",
-		phone: "",
-		password: ""
+		name: "ded",
+		email: "ede",
+		address: "ed",
+		phone: 1,
+		password: "ed",
 	},
-	validate(attrs) {
-		if (!attrs.name) {
-			return 'Name is required';
-		}
-		else if (!attrs.phone) {
-			return 'Phone is required';
-		}
-		else if (!attrs.password || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)) {
-			return 'Invalid Password';
-		}
-		else if (!attrs.password) {
-			return 'Invalid PAssword';
-		}
-		else if (attrs.password) {
-			return 'Password is required';
-		}
-		else if (!attrs.email || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)) {
-			return 'Email is required';
-		}
-		else if (!attrs.address) {
-			return 'Address is required';
-		}
-	},
-
-	saveUSer() {
-		debugger;
-		this.save(userDetails, {
-			success: function (user) {
-				alert(JSON.stringify(user));
-			}
-		});
-	},
+	//validate(attrs) {
+	//	if (!attrs.name) {
+	//		return 'Name is required';
+	//	}
+	//	else if (!attrs.phone) {
+	//		return 'Phone is required';
+	//	}
+	//	else if (!attrs.password || /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)) {
+	//		return 'Invalid Password';
+	//	}
+	//	else if (!attrs.password) {
+	//		return 'Invalid PAssword';
+	//	}
+	//	else if (attrs.password) {
+	//		return 'Password is required';
+	//	}
+	//	else if (!attrs.email || /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)) {
+	//		return 'Email is required';
+	//	}
+	//	else if (!attrs.address) {
+	//		return 'Address is required';
+	//	}
+	//},
 
 	getUser() {
 		this.fetch({
@@ -410,10 +442,10 @@ models.UserModel = Backbone.Model.extend({
 
 var AppRouter = Backbone.Router.extend({
 	routes: {
-		"": "dashboardRoute",
+		"": "showLogin",
 		"dashboard": "dashboardRoute",
 		"Products": "createProductsRoute",
-		"Products/:id": "showProduct",
+		"product/:id": "showProduct",
 		"cart": "showCart",
 		"wishlist": "showWishlist",
 		"login": "showLogin",
@@ -440,7 +472,6 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	showCart: function () {
-		debugger;
 		var createProductsView = new cartView();
 		$("#content-container").html(createProductsView.el);
 	},
@@ -485,3 +516,4 @@ var sharedMEthods = {
 		alert.class(alertClass + "show");
 	}
 };
+

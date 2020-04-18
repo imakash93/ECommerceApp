@@ -28,9 +28,9 @@ namespace DataAccessLayer
 
         }
 
-        public bool RemoveCartItem(CartDTO item)
+        public bool RemoveCartItem(IList<CartDTO> item)
         {
-             _context.Cart.Remove(item);
+             _context.Cart.RemoveRange(item);
             return true;
         }
 

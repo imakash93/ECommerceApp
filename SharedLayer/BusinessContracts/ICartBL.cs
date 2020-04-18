@@ -7,6 +7,6 @@ namespace SharedLayer.BusinessContracts
     {
         IList<CartDTO> GetCart();
         bool SaveCart(IList<CartDTO> items);
-        bool RemoveCartItems(CartDTO item);
+        bool RemoveCartItems(IList<CartDTO> item);
     }
 }
