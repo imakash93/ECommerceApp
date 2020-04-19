@@ -170,7 +170,51 @@ var cartView = Backbone.View.extend({
 
 	events: {
 		"click .remove-from-cart": "removeFromCart",
-		'change .quantity': 'updateValues'
+		'change .quantity': 'updateValues',
+		'click #addToCart': 'addToCart'
+	},
+
+
+	addToCart: function (e) {
+		var productCode = parseInt($("#productCode").val());
+		var self = this;
+		
+		$.ajax({
+			url: "api/Products/" + productCode,
+			success: function (res) {	
+				if (res != null) {
+					defaults = {
+						ProductId: res.key,
+						quantity: 1,
+						UserId: self.user.key,
+						isWishlist: false,
+						price: parseInt(res.price),
+						ImgUrl: "images/wishlistImage.png"
+					};
+					$.ajax({
+						url: 'api/Cart/PostCartDTO/',
+						type: 'Put',
+						contentType: 'application/json',
+						data: JSON.stringify(defaults),
+						dataType: 'text',
+						error: function (xhr) {
+						},
+						success: function (result) {
+							debugger;
+							alert("Product Added Successfully");
+							self.collection.
+						},
+						async: true,
+						processData: false
+					});
+				}
+				else {
+					alert("Invalid Product ID");
+				}
+			}
+		});
+
+		
 	},
 
 	updateValues: function (e) {
@@ -205,8 +249,6 @@ var cartView = Backbone.View.extend({
 		});
 	},
 
-
-
 	initialize: function () {
 		this.listenTo(this.collection, "reset change", this.render);
 		this.collection = new models.CartModel();
@@ -234,6 +276,7 @@ var cartView = Backbone.View.extend({
 		});
 
 	},
+
 	render: function () {
 		(html = this.template({
 			products: this.collection
@@ -354,35 +397,38 @@ var WishlistView = Backbone.View.extend({
 	}
 });
 
-var UserView = Backbone.View.extend({
-	// template: Handlebars.compile($("#user-template").html()),
 
-	initialize: function () {
-		this.listenTo(this.model, "reset change", this.render);
-		this.model = new models.UserModel();
-		var self = this;
-		// this.model.fetch({
-		//   success: function () {
-		//     console.log(self.model);
-		// self.render();
 
-		//   }
-		// });
-		this.render();
-	},
-	render: function () {
-		(html = this.template(
-			// products: this.model.toJSON()
-			{
-				id: 1,
-				name: "Leanne Graham",
-				email: "Sincere@april.biz"
-			}
-		)),
-			this.$el.html(html);
-		return this;
-	}
-});
+//To do
+//var UserView = Backbone.View.extend({
+//	// template: Handlebars.compile($("#user-template").html()),
+
+//	initialize: function () {
+//		this.listenTo(this.model, "reset change", this.render);
+//		this.model = new models.UserModel();
+//		var self = this;
+//		// this.model.fetch({
+//		//   success: function () {
+//		//     console.log(self.model);
+//		// self.render();
+
+//		//   }
+//		// });
+//		this.render();
+//	},
+//	render: function () {
+//		(html = this.template(
+//			// products: this.model.toJSON()
+//			{
+//				id: 1,
+//				name: "Leanne Graham",
+//				email: "Sincere@april.biz"
+//			}
+//		)),
+//			this.$el.html(html);
+//		return this;
+//	}
+//});
 
 var LoginView = Backbone.View.extend({
 
@@ -408,7 +454,12 @@ var LoginView = Backbone.View.extend({
 				if (res) {
 					self = res;
 					localStorage.setItem('user', JSON.stringify(res));
-					window.location.hash = 'Products';
+					var userTemplate = Handlebars.compile($("#user-template").html());
+					var html = userTemplate(res);
+					var el = $('#userDropdown');
+					el.html(html);
+					alert("Login Successful");
+					window.location.hash = 'dashboard';
 				}
 				else {
 					alert("Invalid Credentials");
@@ -423,6 +474,7 @@ var LoginView = Backbone.View.extend({
 		this.model = new models.UserModel();
 		this.render();
 	},
+
 	render: function () {
 		(html = this.template()), this.$el.html(html);
 		return this;
@@ -465,8 +517,11 @@ var UserRegistrationView = Backbone.View.extend({
 			data: JSON.stringify(model.model),
 			dataType: 'text',
 			error: function (xhr) {
+				alert("Registration Failed");
+				window.location.hash = 'login';
 			},
 			success: function (result) {
+				alert("Registration Successful");
 				window.location.hash = 'login';
 			},
 			async: true,
@@ -487,7 +542,6 @@ var UserRegistrationView = Backbone.View.extend({
 
 		if (isValid) {
 			this.checkEmail($("#inputEmail").val(), self);
-
 		}
 		else {
 			alert(this.model.validationError);

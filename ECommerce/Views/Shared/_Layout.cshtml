@@ -19,12 +19,11 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary  fixed-top ">
-        <a class="navbar-brand custom-logo" href="#">YOLO</a>
+        <a class="navbar-brand custom-logo" href="#/dashboard">YOLO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -57,20 +56,11 @@
                     </div>
                 </div>
                 <!-- /ACCOUNT -->
+
             </form>
         </div>
-        <div class="dropdown">
-            <!--Trigger-->
-
-            <button class="btn btn-primary dropdown  fas fa-ellipsis-v px-2" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-
-
-            <!--Menu-->
-            <div class="dropdown-menu dropdown-primary">
-                <a class="dropdown-item" href="#"><i class="fab fa-apple-pay"></i>&nbsp;&nbsp;Pay</a>
-                <a class="dropdown-item" href="#"><i class="fas fa-bell-slash"></i>&nbsp;&nbsp;Disable alertss</a>
-                <a class="dropdown-item" href="#"><i class="far fa-envelope"></i>&nbsp;&nbsp;Check mail</a>
-            </div>
+        <div class="dropdown" id="userDropdown">
+           
         </div>
     </nav>
 
@@ -80,6 +70,7 @@
             </div>
         </div>
     </div>
+    @RenderBody()
 
     <div class="alert alert-warning alert-dismissible fade collapse" role="alert">
         <strong id="success-data"></strong>
@@ -192,7 +183,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Laptop<br>Collection</h3>
-                                <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -205,7 +196,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Accessories<br>Collection</h3>
-                                <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -218,7 +209,7 @@
                             </div>
                             <div class="shop-body">
                                 <h3>Mobile<br>Collection</h3>
-                                <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -285,10 +276,11 @@
                                 </figure>
                             </td>
                             <td>
-                                <input type="number" class="quantity" value={{quantity}} min="1" max="1000" step="1" price={{price}}/>
+                                <input type="number" class="quantity" value={{quantity}} min="1" max="1000" step="1" price={{price}} />
                             </td>
                             <td>
-                                <div class="price-wrap">Rs : 
+                                <div class="price-wrap">
+                                    Rs :
                                     <b class="price">{{price}}</b>
                                     <small class="text-muted">(USD5 each)</small>
                                 </div>
@@ -307,19 +299,21 @@
                                 <b>  Total price : 50.00€</b>
                             </div>
                         </div>
-                        <div class="row justify-content-end">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="cupone code">
+                        <div class="row justify-content-start">
+                            <div class="pl-0">
+                                <input type="text" class="form-control" id="productCode" placeholder="Product code">
                             </div>
-                            <div class="col-md-7">
-                                <input type="submit" class="btn btn-success" value="Use cupone">
+                            <div class="pl-0">
+                                <input  class="btn btn-success" id="addToCart" value="Add to cart">
                             </div>
-                            <div class="col-md-2">
-                                <a href ="#/orders" class="btn btn-primary pull-right place-order">Checkout</a>
+                            <div class="pl-3">
+                                <a href="#/orders" class="btn btn-primary pull-right place-order">Checkout</a>
                             </div>
                         </div>
+                        <div class="row justify-content-end">
+
+                        </div>
                     </div>
-                </div>
             </div>
 
     </script>
@@ -422,7 +416,7 @@
                             </td>
                             <td class="text-right" pid={{productId}} uid={{userId}} key={{key}}>
                                 <a title="" class="btn btn-outline-danger mr-2 remove-from-wishlist" data-toggle="tooltip" data-original-title="Delete from Wishlist"><i class="fas fa-trash-alt"></i></a>
-                                <a title="" class="btn btn-outline-primary move-to-cart" data-toggle="tooltip"  data-original-title="Add to Cart"> <i class="fa fa-shopping-cart"></i></a>
+                                <a title="" class="btn btn-outline-primary move-to-cart" data-toggle="tooltip" data-original-title="Add to Cart"> <i class="fa fa-shopping-cart"></i></a>
 
                             </td>
                         </tr>
@@ -463,16 +457,10 @@
                         Product Reviews
                     </div>
                     <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+                        <p><b>Coming Soon !!!!!!!!</b></p>
+                        <small class="text-muted">Posted by Admin</small>
                         <hr>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                        <hr>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-                        <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                        <hr>
-                        <a  class="btn btn-success">Leave a Review</a>
+                        <a class="btn btn-success" disable>Leave a Review</a>
                     </div>
                 </div>
                 <!-- /.card -->
@@ -490,7 +478,7 @@
                 <form>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-email"></i></span>
+                            <span class="input-group-text"><i class="fas fa-at"></i></span>
                         </div>
                         <input type="email" class="form-control email" placeholder="email">
 
@@ -501,9 +489,7 @@
                         </div>
                         <input type="password" class="form-control password" placeholder="password">
                     </div>
-                    <div class=" align-items-center remember">
-                        <input type="checkbox">Remember Me
-                    </div>
+
                     <div class="form-group">
                         <input value="Login" class="btn float-right login_btn">
                     </div>
@@ -543,7 +529,29 @@
             </div>
             <button class="btn btn-primary submit-btn">Sign in</button>
         </form>
-        @RenderBody()
+    </script>
+
+
+    <script type="text/template" id="user-template">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+            <form class="">
+                <div class="form-group">
+                    <label for="exampleDropdownFormEmail1">Name : {{name}} </label>
+                </div>
+                <div class="form-group">
+                    <label for="exampleDropdownFormEmail1">Email address : {{email}}</label>
+                </div>
+                <div class="form-group">
+                    <label for="exampleDropdownFormPassword1">Address : {{address}}</label>
+                </div>
+            </form>
+            <div class="dropdown-divider">
+                <a class="dropdown-item">Logout</a>
+            </div>
+        </div>
     </script>
 
 
