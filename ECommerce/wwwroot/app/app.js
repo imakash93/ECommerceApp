@@ -419,6 +419,7 @@ var LoginView = Backbone.View.extend({
 	},
 
 	initialize: function () {
+		localStorage.removeItem('user');
 		this.model = new models.UserModel();
 		this.render();
 	},

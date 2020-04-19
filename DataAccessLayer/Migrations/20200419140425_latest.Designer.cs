@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20200418161742_asa")]
-    partial class asa
+    [Migration("20200419140425_latest")]
+    partial class latest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
