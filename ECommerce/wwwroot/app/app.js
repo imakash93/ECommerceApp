@@ -41,7 +41,6 @@ var OrdersView = Backbone.View.extend({
 		"click .confirm-order": "placeOrder"
 	},
 	placeOrder: function (e) {
-		debugger;
 		var sum = 0;
 		var user = localStorage.getItem("user");
 		jQuery.each(this.collection, function (i, val) {
@@ -57,7 +56,6 @@ var OrdersView = Backbone.View.extend({
 		//	url: "api/Products/GetOrders",
 		//	data: { userID: 1 },
 		//	success: function () {
-		//		debugger;
 		//		self.render();
 		//	}
 		//});
@@ -83,7 +81,6 @@ var ProductView = Backbone.View.extend({
 	},
 
 	addToCart: function (e) {
-		debugger;
 		var items = parseInt($(".quantity").val());
 		var self = this;
 		defaults = {
@@ -141,7 +138,6 @@ var ProductView = Backbone.View.extend({
 
 	template: Handlebars.compile($("#product-template").html()),
 	initialize: function (options) {
-		debugger;
 		this.listenTo(this.model, "reset change", this.render);
 		this.model = new models.ProductModel();
 		loggedUser = localStorage.getItem("user");
@@ -158,14 +154,12 @@ var ProductView = Backbone.View.extend({
 		this.model.fetch({
 			url: "api/Products/" + options.id,
 			success: function () {
-				debugger;
 				console.log(self.model);
 				self.render();
 			}
 		});
 	},
 	render: function () {
-		debugger;
 		(html = this.template(this.model.toJSON())), this.$el.html(html);
 		return this;
 	}
@@ -180,14 +174,12 @@ var cartView = Backbone.View.extend({
 	},
 
 	updateValues: function (e) {
-		debugger;
 		var items = parseInt(e.currentTarget.value);
 		var price = parseInt(e.currentTarget.getAttribute("price"));
 		e.currentTarget.parentElement.nextElementSibling.firstElementChild.firstElementChild.innerText = items * price;
 	},
 
 	removeFromCart(e) {
-		debugger;
 		var data = e.target.closest('td');
 		var key = data.getAttribute("key");
 		var cartProduct;
@@ -207,7 +199,6 @@ var cartView = Backbone.View.extend({
 			error: function (xhr) {
 			},
 			success: function (result) {
-				debugger;
 			},
 			async: true,
 			processData: false
@@ -237,7 +228,6 @@ var cartView = Backbone.View.extend({
 			},
 			type: 'GET',
 			success: function (res) {
-				debugger;
 				self.collection = res;
 				self.render();
 			}
@@ -282,7 +272,6 @@ var WishlistView = Backbone.View.extend({
 			error: function (xhr) {
 			},
 			success: function (result) {
-				debugger;
 			},
 			async: true,
 			processData: false
@@ -309,7 +298,6 @@ var WishlistView = Backbone.View.extend({
 			}
 		});
 
-		debugger;
 		e.currentTarget.closest('tr').remove()
 		cartProduct.isWishlist = false;
 		$.ajax({
@@ -321,7 +309,6 @@ var WishlistView = Backbone.View.extend({
 			error: function (xhr) {
 			},
 			success: function (result) {
-				debugger;
 
 			},
 			async: true,
@@ -371,7 +358,6 @@ var UserView = Backbone.View.extend({
 	// template: Handlebars.compile($("#user-template").html()),
 
 	initialize: function () {
-		debugger;
 		this.listenTo(this.model, "reset change", this.render);
 		this.model = new models.UserModel();
 		var self = this;
@@ -385,7 +371,6 @@ var UserView = Backbone.View.extend({
 		this.render();
 	},
 	render: function () {
-		debugger;
 		(html = this.template(
 			// products: this.model.toJSON()
 			{
@@ -408,7 +393,6 @@ var LoginView = Backbone.View.extend({
 	},
 
 	login() {
-		debugger;
 		this.model.set("email", $(".email").val());
 		this.model.set("password", $(".password").val());
 		var self = this;
@@ -420,7 +404,6 @@ var LoginView = Backbone.View.extend({
 			},
 			type: 'GET',
 			success: function (res) {
-				debugger;
 				console.log(res);
 				if (res) {
 					self = res;
@@ -454,7 +437,6 @@ var UserRegistrationView = Backbone.View.extend({
 	},
 
 	checkEmail(email, self) {
-		debugger;
 		var model = self
 		$.ajax({
 			url: "/api/User/checkEmail/",
@@ -501,7 +483,6 @@ var UserRegistrationView = Backbone.View.extend({
 		var isValid = this.model.isValid();
 		var isDuplicate = false;
 
-		debugger;
 
 		if (isValid) {
 			this.checkEmail($("#inputEmail").val(), self);
@@ -513,13 +494,11 @@ var UserRegistrationView = Backbone.View.extend({
 	},
 
 	initialize: function () {
-		debugger;
 		this.model = new models.UserModel();
 		var self = this;
 		this.render();
 	},
 	render: function () {
-		debugger;
 		(html = this.template()), this.$el.html(html);
 		return this;
 	}
@@ -571,7 +550,6 @@ models.UserModel = Backbone.Model.extend({
 	},
 	validate: function (attrs, options) {
 		if (!attrs.name) {
-			debugger;
 			return 'Name is required';
 		}
 		else if (!attrs.phone) {
@@ -620,7 +598,6 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	createProductsRoute: function () {
-		debugger;
 		var psm = new models.ProductsModel({});
 		var createProductsView = new ProductsView();
 		$("#content-container").html(createProductsView.el);
@@ -633,7 +610,6 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	showProduct: function (id) {
-		debugger;
 		var createProductView = new ProductView({
 			id: id
 		});
@@ -646,19 +622,16 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	showWishlist: function () {
-		debugger;
 		var createWishlistView = new WishlistView();
 		$("#content-container").html(createWishlistView.el);
 	},
 
 	showLogin: function () {
-		debugger;
 		var createLoginView = new LoginView();
 		$("#content-container").html(createLoginView.el);
 	},
 
 	registerUser: function () {
-		debugger;
 		var createRegistrationView = new UserRegistrationView();
 		$("#content-container").html(createRegistrationView.el);
 	}
