@@ -101,7 +101,6 @@ a{
 
 .header-ctn {
   float: right;
-  padding: 15px 0px;
 }
 
 .header-ctn>div {
@@ -109,7 +108,6 @@ a{
 }
 
 .header-ctn>div+div {
-  margin-left: 15px;
 }
 
 .header-ctn>div>a {

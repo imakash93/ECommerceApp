@@ -171,52 +171,7 @@ var cartView = Backbone.View.extend({
 	events: {
 		"click .remove-from-cart": "removeFromCart",
 		'change .quantity': 'updateValues',
-		'click #addToCart': 'addToCart'
 	},
-
-
-	addToCart: function (e) {
-		var productCode = parseInt($("#productCode").val());
-		var self = this;
-		
-		$.ajax({
-			url: "api/Products/" + productCode,
-			success: function (res) {	
-				if (res != null) {
-					defaults = {
-						ProductId: res.key,
-						quantity: 1,
-						UserId: self.user.key,
-						isWishlist: false,
-						price: parseInt(res.price),
-						ImgUrl: "images/wishlistImage.png"
-					};
-					$.ajax({
-						url: 'api/Cart/PostCartDTO/',
-						type: 'Put',
-						contentType: 'application/json',
-						data: JSON.stringify(defaults),
-						dataType: 'text',
-						error: function (xhr) {
-						},
-						success: function (result) {
-							debugger;
-							alert("Product Added Successfully");
-							self.collection.
-						},
-						async: true,
-						processData: false
-					});
-				}
-				else {
-					alert("Invalid Product ID");
-				}
-			}
-		});
-
-		
-	},
-
 	updateValues: function (e) {
 		var items = parseInt(e.currentTarget.value);
 		var price = parseInt(e.currentTarget.getAttribute("price"));
@@ -714,3 +669,59 @@ var sharedMEthods = {
 	}
 };
 
+
+var searchProduct = function (e) {
+	loggedUser = localStorage.getItem("user");
+	var user;
+	if (loggedUser) {
+		user = JSON.parse(loggedUser);
+	}
+	else {
+		alert("Login Required");
+		window.location.hash = 'login';
+		return;
+	}
+	var productCode = parseInt($("#productId").val());
+	var self = this;
+
+	$.ajax({
+		url: "api/Products/" + productCode,
+		success: function (res) {
+			if (res != null) {
+				defaults = {
+					ProductId: res.key,
+					quantity: 1,
+					UserId: user.key,
+					isWishlist: false,
+					price: parseInt(res.price),
+					ImgUrl: "images/wishlistImage.png"
+				};
+				$.ajax({
+					url: 'api/Cart/PostCartDTO/',
+					type: 'Put',
+					contentType: 'application/json',
+					data: JSON.stringify(defaults),
+					dataType: 'text',
+					error: function (xhr) {
+					},
+					success: function (result) {
+						alert("Product Added Successfully");
+					},
+					async: true,
+					processData: false
+				});
+			}
+			else {
+				alert("Invalid Product ID");
+			}
+		}
+	});
+
+
+};
+
+$(function () {
+	$("#searchProductId").click(function () {
+		searchProduct();
+	});
+});
