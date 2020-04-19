@@ -38,6 +38,7 @@ namespace SharedLayer.DTO
         public int UserId { get; set; }
 
         public int price { get; set; }
+        public int DeliveryTime { get; set; }
 
         public string ImageUrl
         {

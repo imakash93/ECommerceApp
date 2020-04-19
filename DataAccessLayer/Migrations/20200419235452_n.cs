@@ -2,47 +2,11 @@
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class latest : Migration
+    public partial class n : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    Key = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Quantity = table.Column<string>(nullable: true),
-                    Price = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false),
-                    ImageUrl = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.Key);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Key = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Phone = table.Column<long>(nullable: false),
-                    Sex = table.Column<int>(nullable: false),
-                    Address = table.Column<string>(nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    Password = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Key);
-                });
-
+            
             migrationBuilder.CreateTable(
                 name: "Cart",
                 columns: table => new
@@ -53,6 +17,7 @@ namespace DataAccessLayer.Migrations
                     Quantity = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     price = table.Column<int>(nullable: false),
+                    DeliveryTime = table.Column<int>(nullable: false),
                     ImageUrl = table.Column<string>(nullable: true),
                     IsWishlist = table.Column<bool>(nullable: false),
                     ProductDTOKey = table.Column<int>(nullable: true),

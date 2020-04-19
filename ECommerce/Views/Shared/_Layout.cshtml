@@ -293,10 +293,9 @@
                                                     <figure class="media">
                                                         <div class="img-wrap"><img src={{imageUrl}} class="img-thumbnail img-sm custom-img"></div>
                                                         <figcaption class="media-body">
-                                                            <h6 class="title text-truncate">Product name goes here </h6>
+                                                            <h6 class="title text-truncate">DeliveryTime : {{deliveryTime}} Days</h6>
                                                             <dl class="param param-inline small">
-                                                                <dt>Size: {{id}}</dt>
-                                                                <dd>XXL</dd>
+                                                                <dt>ID : {{id}}</dt>
                                                             </dl>
                                                             <dl class="param param-inline small">
                                                                 <dt>Color: </dt>
@@ -306,7 +305,8 @@
                                                     </figure>
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="quantity" value={{quantity}} min="1" max="1000" step="1" price={{price}} />
+                                                    {{quantity}}
+
                                                 </td>
                                                 <td>
                                                     <div class="price-wrap">
@@ -324,11 +324,6 @@
                                     </table>
                                     <div class="card-footer">
                                         <div class="container">
-                                            <div class="row justify-content-end mb-4">
-                                                <div class="col-md-3">
-                                                    <b>  Total price : 50.00€</b>
-                                                </div>
-                                            </div>
                                             <div class="row justify-content-start">
                                                 <div class="pl-0">
                                                     <input type="text" class="form-control" id="" placeholder="Coupon code">
@@ -337,7 +332,7 @@
                                                     <input class="btn btn-success" value="Apply Code">
                                                 </div>
                                                 <div class="pl-3">
-                                                    <a href="#/orders" class="btn btn-primary pull-right place-order">Checkout</a>
+                                                    <btn class="btn btn-primary pull-right place-order">Checkout</btn>
                                                 </div>
                                             </div>
                                             <div class="row justify-content-end">
@@ -371,8 +366,8 @@
                                                                 <figcaption class="media-body">
                                                                     <h6 class="title text-truncate">{{name}}</h6>
                                                                     <dl class="param param-inline small">
-                                                                        <dt>Size: {{id}}</dt>
-                                                                        <dd>XXL</dd>
+                                                                        <dt>Delivery Time : </dt>
+                                                                        <dd>{{deliveryTime}}</dd>
                                                                     </dl>
                                                                     <dl class="param param-inline small">
                                                                         {{name}}
@@ -385,7 +380,7 @@
                                                         </td>
                                                         <td>
                                                             <div class="price-wrap">
-                                                                <var class="price"></var>
+                                                                <var class="price">{{price}}</var>
                                                                 <small class="text-muted">(USD5 each)</small>
                                                             </div>
                                                         </td>
@@ -395,13 +390,8 @@
                                             </table>
                                             <div class="card-footer">
                                                 <div class="container">
-                                                    <div class="row justify-content-end mb-4">
-                                                        <div class="col-md-3">
-                                                            <b class="total-price">  Total price : 50.00€</b>
-                                                        </div>
-                                                    </div>
                                                     <div class="row justify-content-end">
-                                                        <div class="col-md-12">
+                                                        <div class="">
                                                             <a class="btn btn-primary pull-right confirm-order">Confirm Order</a>
                                                         </div>
                                                     </div>
@@ -410,7 +400,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                         </script>
 
                         <script type="text/template" id="wishlist-template">
@@ -431,16 +420,17 @@
                                                     <figure class="media">
                                                         <div class="img-wrap"><img src={{imageUrl}} class="img-thumbnail img-sm custom-img"></div>
                                                         <figcaption class="media-body">
-                                                            <h6 class="title text-truncate">Product Name : {{name}} </h6>
+                                                            <h6 class="title text-truncate">DeliveryTime : {{deliveryTime}} Days </h6>
                                                             <dl class="param param-inline small">
-                                                                ProductID : {{key}}
+                                                                ProductID : {{productID}}
                                                             </dl>
+                                                            <dd></dd>
                                                         </figcaption>
                                                     </figure>
                                                 </td>
                                                 <td>
                                                     <div class="price-wrap">
-                                                        <var class="price">USD 145</var>
+                                                        <var class="price">Price :  {{price}}</var>
                                                         <small class="text-muted">(USD5 each)</small>
                                                     </div> <!-- price-wrap .// -->
                                                 </td>
@@ -466,7 +456,7 @@
                                             <h3 class="card-title id">ProductID : {{key}}</h3>
                                             <p class="card-text .price">Price : {{price}}</p>
                                             <p class="card-text">Quantity Available : {{quantity}}</p>
-                                            <p class="card-text">ProductID : {{key}}</p>
+                                            <p class="card-text">Delivery Time : {{type}} Days</p>
                                             <span class="mr-4">
                                                 <label>Qty : </label> <input type="number" class="quantity" value="1" min="1" max="{{quantity}}" step="1" />
                                             </span>

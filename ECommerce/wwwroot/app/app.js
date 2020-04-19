@@ -42,35 +42,34 @@ var OrdersView = Backbone.View.extend({
 	},
 	placeOrder: function (e) {
 		var sum = 0;
+		var totalTime = 0;
 		var user = localStorage.getItem("user");
 		jQuery.each(this.collection, function (i, val) {
 			sum += val.price * val.quantity;
+			totalTime += parseInt(val.deliveryTime);
 		});
-		alert("Order Placed Total Amount : " + sum);
+		totalTime += 2;
+		alert("Order Placed Total Amount : " + sum + " " + "Estimated Delivery time is : " + totalTime);
 	},
+
 	initialize: function () {
 		this.listenTo(this.collection, "reset change", this.render);
 		this.collection = new models.OrdersModel();
 		var self = this;
-		//this.collection.fetch({
-		//	url: "api/Products/GetOrders",
-		//	data: { userID: 1 },
-		//	success: function () {
-		//		self.render();
-		//	}
-		//});
-		var collection = localStorage.getItem("cart");
+		var collection = localStorage.getItem("orders");
 		var items = JSON.parse(collection);
 		this.collection = items;
 		this.render();
 	},
 	render: function () {
+		var total = 0;
 		(html = this.template({
 			products: this.collection
 		})),
 			this.$el.html(html);
+		
 		return this;
-	}
+	},
 });
 
 var ProductView = Backbone.View.extend({
@@ -85,6 +84,7 @@ var ProductView = Backbone.View.extend({
 		var self = this;
 		defaults = {
 			ProductId: this.model.get("key"),
+			deliveryTime: parseInt(this.model.get("type")),
 			quantity: parseInt($('.quantity').val()),
 			UserId: this.user.key,
 			isWishlist: false,
@@ -112,6 +112,7 @@ var ProductView = Backbone.View.extend({
 		var items = parseInt($(".quantity").val());
 		var self = this;
 		defaults = {
+			deliveryTime: parseInt(this.model.get("type")),
 			ProductId: this.model.get("key"),
 			quantity: parseInt($('.quantity').val()),
 			UserId: this.user.key,
@@ -171,7 +172,15 @@ var cartView = Backbone.View.extend({
 	events: {
 		"click .remove-from-cart": "removeFromCart",
 		'change .quantity': 'updateValues',
+		'click .place-order': "checkout"
 	},
+
+	checkout: function (e) {
+		localStorage.setItem('orders', JSON.stringify(this.collection));
+		window.location.hash = 'orders';
+
+	},
+
 	updateValues: function (e) {
 		var items = parseInt(e.currentTarget.value);
 		var price = parseInt(e.currentTarget.getAttribute("price"));
