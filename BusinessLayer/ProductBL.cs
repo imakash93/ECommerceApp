@@ -21,9 +21,14 @@ namespace BusinessLayer
             return this.productDL.GetProduct(id);
         }
 
+        public IList<ProductDTO> GetOrders(int userID)
+        {
+            return this.productDL.GetOrders(userID);
+        }
+
         public IList<ProductDTO> GetProducts()
         {
-           return  this.productDL.GetProducts();
+            return this.productDL.GetProducts();
         }
 
     }

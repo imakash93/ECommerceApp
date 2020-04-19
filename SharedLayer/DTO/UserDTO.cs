@@ -5,6 +5,11 @@ namespace SharedLayer.DTO
 {
     public class UserDTO
     {
+
+        public UserDTO()
+        {
+
+        }
         [Key]
         public int Key { get; set; }
 

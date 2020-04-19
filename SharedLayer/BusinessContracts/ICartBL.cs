@@ -5,8 +5,9 @@ namespace SharedLayer.BusinessContracts
 {
     public interface ICartBL
     {
-        IList<CartDTO> GetCart();
-        bool SaveCart(IList<CartDTO> items);
-        bool RemoveCartItems(IList<CartDTO> item);
+        IList<CartDTO> GetCart(int userID,bool isWishList);
+        bool SaveCart(CartDTO items);
+        bool RemoveCartItems(CartDTO item);
+        bool DelCartItems(CartDTO item);
     }
 }

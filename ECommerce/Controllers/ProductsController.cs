@@ -18,10 +18,17 @@ namespace ECommerce.Controllers
         }
 
         // GET: api/Products
-        [HttpGet]
+        [HttpGet("GetProducts")]
         public  IList<ProductDTO> GetProducts()
         {
             return productBL.GetProducts();
+
+        }
+
+        [HttpGet("GetOrders")]
+        public IList<ProductDTO> GetOrders(int userID)
+        {
+            return productBL.GetOrders(userID);
 
         }
 

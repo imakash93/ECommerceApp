@@ -8,8 +8,10 @@ namespace SharedLayer.DataContracts
    public interface ICartDL
     {
         IList<CartDTO> GetCart();
-        bool RemoveCartItem(IList<CartDTO> item);
+        bool RemoveCartItem(CartDTO item);
 
-        bool AddToCart(IList<CartDTO> items);
+        bool DelCartItems(CartDTO item);
+
+        bool AddToCart(CartDTO items);
     }
 }

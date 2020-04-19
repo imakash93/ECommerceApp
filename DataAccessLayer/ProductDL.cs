@@ -30,6 +30,11 @@ namespace DataAccessLayer
             return productDbContext.Products.ToList<ProductDTO>();
         }
 
+        public IList<ProductDTO> GetOrders(int userID)
+        {
+            return productDbContext.Products.ToList<ProductDTO>();
+        }
+
         public  ProductDTO GetProduct(int id)
         {
             var productDTO =  productDbContext.Products.Find(id);

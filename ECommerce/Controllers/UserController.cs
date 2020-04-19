@@ -34,26 +34,24 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet("GetUser")]
-        public bool GetUser(string email)
+        public UserDTO GetUser(string email,string pass)
         {
             var userList = userBL.GetUsers();
 
-            var UserDTO = userList.Where(s => s.Email == email)
+            var userDTO = userList.Where(s => s.Email == email && s.Password == pass)
                                .Select(s => s);
-
-            //if (UserDTO == null)
-            //{
-            //    return null;
-            //}
-
-            return false;
+            if (userDTO.Count() == 0)
+            {
+               new UserDTO();
+            }
+            return userDTO.FirstOrDefault();
         }
 
         [HttpGet("checkEmail")]
         public bool checkEmail(string email)
         {
-            var userDTO = userBL.CheckEmail(email);
-            return userDTO;
+            var result = userBL.CheckEmail(email);
+            return result;
         }
 
 

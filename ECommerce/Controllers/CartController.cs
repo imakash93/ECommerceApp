@@ -25,24 +25,30 @@ namespace ECommerce.Controllers
 
 
         [HttpGet("GetCart")]
-        public IList<CartDTO> GetCart(int userID)
+        public IList<CartDTO> GetCart(int userID,bool isWishList)
         {
-            return  cartBL.GetCart();
+            return  cartBL.GetCart(userID,isWishList);
         }
     
-        [HttpPost]
-        public List<CartDTO> PostCartDTO(List<CartDTO> cartDTOs)
+        [HttpPut("PostCartDTO")]
+        public CartDTO PostCartDTO(CartDTO item)
         {
-            this.cartBL.SaveCart(cartDTOs);
-
-            return cartDTOs;
+            this.cartBL.SaveCart(item);
+            return item;
         }
 
-        // DELETE: api/CartDTOes/5
-        [HttpDelete("{id}")]
-        public IList<CartDTO> DeleteCartDTO(IList<CartDTO> item)
+        [HttpPut("RemoveFromCart")]
+        public bool RemoveFromCart(CartDTO item)
         {
             this.cartBL.RemoveCartItems(item);
+            return true;
+        }
+        
+        // DELETE: api/CartDTOes/5
+        [HttpPut("DeleteCartDTO")]
+        public CartDTO DeleteCartDTO(CartDTO item)
+        {
+            this.cartBL.DelCartItems(item);
             return item;
         }
 

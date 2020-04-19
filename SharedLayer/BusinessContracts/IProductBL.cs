@@ -5,6 +5,7 @@ namespace SharedLayer.BusinessContracts
 {
     public interface IProductBL
     {
+        IList<ProductDTO> GetOrders(int userID);
         IList<ProductDTO> GetProducts();
         ProductDTO GetProduct(int id);
 

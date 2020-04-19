@@ -238,14 +238,13 @@
                 <div class="card">
                     <div class="card-body">
                         <img class="card-img-top rounded-0" src={{imageUrl}} alt="Card image cap">
-                        <p class="card-text">{{Name}}</p>
-                        <p class="card-text">{{Price}}</p>
-                        <a href=' {{#productRoute}}{{Key}}{{/productRoute}}' class="card-link">{{key}}</a>
+                        <h3 class="card-title">Product Name : {{name}}</h3>
+                        <h3 class="card-title id">ProductID : {{key}}</h3>
+                        <p class="card-text">Price : {{price}}</p>
+                        <p class="card-text">Quantity Available : {{quantity}}</p>
+                        <p class="card-text">ProductID : {{key}}</p>
+                        <a type="button" href=' {{#productRoute}}{{Key}}{{/productRoute}}' class="btn btn-primary btn-lg btn-block">Read More</a>
 
-                        <a class="btn btn-flat red-text p-1 my-1 mr-0 mml-1 collapsed" data-toggle="collapse" href="#collapseContent" aria-expanded="false" aria-controls="collapseContent"></a>
-                        <i class="fas fa-cart-plus  text-muted float-right p-1 my-1" data-toggle="tooltip" data-placement="top" title="Add to Cart">
-                        </i>
-                        <i class="fas fa-heart text-muted float-right p-1 my-1 mr-3" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"></i>
                     </div>
                 </div>
             </div>
@@ -270,7 +269,7 @@
                         <tr>
                             <td>
                                 <figure class="media">
-                                    <div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
+                                    <div class="img-wrap"><img src={{imageUrl}} class="img-thumbnail img-sm custom-img"></div>
                                     <figcaption class="media-body">
                                         <h6 class="title text-truncate">Product name goes here </h6>
                                         <dl class="param param-inline small">
@@ -285,16 +284,16 @@
                                 </figure>
                             </td>
                             <td>
-                                <input type="number" value="0" min="0" max="1000" step="1" />
+                                <input type="number" class="quantity" value={{quantity}} min="1" max="1000" step="1" price={{price}}/>
                             </td>
                             <td>
-                                <div class="price-wrap">
-                                    <var class="price">USD 145</var>
+                                <div class="price-wrap">Rs : 
+                                    <b class="price">{{price}}</b>
                                     <small class="text-muted">(USD5 each)</small>
                                 </div>
                             </td>
-                            <td class="text-right">
-                                <a title="" href="" class="btn btn-outline-danger" data-toggle="tooltip" data-original-title="Remove from cart"><i class="fas fa-trash-alt"></i></a>
+                            <td class="text-right" pid={{productId}} uid={{userId}} key={{key}}>
+                                <a title="" class="btn btn-outline-danger remove-from-cart" data-toggle="tooltip" data-original-title="Remove from cart"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         {{/each}}
@@ -315,7 +314,72 @@
                                 <input type="submit" class="btn btn-success" value="Use cupone">
                             </div>
                             <div class="col-md-2">
-                                <a href="" class="btn btn-primary pull-right">Checkout</a>
+                                <a href ="#/orders" class="btn btn-primary pull-right place-order">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </script>
+
+
+    <script type="text/template" id="orders-template">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <table class="table table-hover shopping-cart-wrap">
+                            <thead class="text-muted">
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="120">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                <tr>
+                                    <td>
+                                        <figure class="media">
+                                            <div class="img-wrap"><img src={{imageUrl}} alt="img" class="img-thumbnail img-sm custom-img"></div>
+                                            <figcaption class="media-body">
+                                                <h6 class="title text-truncate">{{name}}</h6>
+                                                <dl class="param param-inline small">
+                                                    <dt>Size: {{id}}</dt>
+                                                    <dd>XXL</dd>
+                                                </dl>
+                                                <dl class="param param-inline small">
+                                                    {{name}}
+                                                </dl>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <p>{{quantity}}</p>
+                                    </td>
+                                    <td>
+                                        <div class="price-wrap">
+                                            <var class="price"></var>
+                                            <small class="text-muted">(USD5 each)</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <div class="card-footer">
+                            <div class="container">
+                                <div class="row justify-content-end mb-4">
+                                    <div class="col-md-3">
+                                        <b class="total-price">  Total price : 50.00€</b>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary pull-right confirm-order">Confirm Order</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -331,7 +395,6 @@
                     <thead class="text-muted">
                         <tr>
                             <th scope="col">Product</th>
-                            <th scope="col" width="120">Quantity</th>
                             <th scope="col" width="120">Price</th>
                             <th scope="col" width="200" class="text-right">Action</th>
                         </tr>
@@ -341,22 +404,14 @@
                         <tr>
                             <td>
                                 <figure class="media">
-                                    <div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
+                                    <div class="img-wrap"><img src={{imageUrl}} class="img-thumbnail img-sm custom-img"></div>
                                     <figcaption class="media-body">
-                                        <h6 class="title text-truncate">Product name goes here </h6>
+                                        <h6 class="title text-truncate">Product Name : {{name}} </h6>
                                         <dl class="param param-inline small">
-                                            <dt>Size: {{id}}</dt>
-                                            <dd>XXL</dd>
-                                        </dl>
-                                        <dl class="param param-inline small">
-                                            <dt>Color: </dt>
-                                            <dd>Orange color</dd>
+                                            ProductID : {{key}}
                                         </dl>
                                     </figcaption>
                                 </figure>
-                            </td>
-                            <td>
-                                <input type="number" value="0" min="0" max="1000" step="1" />
                             </td>
                             <td>
                                 <div class="price-wrap">
@@ -364,9 +419,9 @@
                                     <small class="text-muted">(USD5 each)</small>
                                 </div> <!-- price-wrap .// -->
                             </td>
-                            <td class="text-right">
-                                <a title="" href="" class="btn btn-outline-danger mr-2" data-toggle="tooltip" data-original-title="Delete from Wishlist"><i class="fas fa-trash-alt"></i></a>
-                                <a title="" href="" class="btn btn-outline-primary" data-toggle="tooltip" data-original-title="Add to Cart"> <i class="fa fa-shopping-cart"></i></a>
+                            <td class="text-right" pid={{productId}} uid={{userId}} key={{key}}>
+                                <a title="" class="btn btn-outline-danger mr-2 remove-from-wishlist" data-toggle="tooltip" data-original-title="Delete from Wishlist"><i class="fas fa-trash-alt"></i></a>
+                                <a title="" class="btn btn-outline-primary move-to-cart" data-toggle="tooltip"  data-original-title="Add to Cart"> <i class="fa fa-shopping-cart"></i></a>
 
                             </td>
                         </tr>
@@ -380,17 +435,21 @@
         <div class="row ustify-content-center">
             <div class="col-lg-6 offset-lg-3">
                 <div class="card mt-4">
-                    <img class="card-img-top img-fluid" src="http://placehold.it/1" alt="">
+                    <img class="card-img-top rounded-0 " src={{imageUrl}} alt="Card image cap">
                     <div class="card-body">
-                        <h3 class="card-title">{{name}}</h3>
-                        <h3 class="card-title id">{{key}}</h3>
-                        <h4>RS {{price}}</h4>
-                        <span>
+                        <h3 class="card-title">Product Name : {{name}}</h3>
+                        <h3 class="card-title id">ProductID : {{key}}</h3>
+                        <p class="card-text .price">Price : {{price}}</p>
+                        <p class="card-text">Quantity Available : {{quantity}}</p>
+                        <p class="card-text">ProductID : {{key}}</p>
+                        <span class="mr-4">
                             <label>Qty : </label> <input type="number" class="quantity" value="1" min="1" max="{{quantity}}" step="1" />
                         </span>
                         <span>
-
-                            <button type="button" class="btn btn-sm btn-primary add-to-cart">Add to cart</button>
+                            <button type="button" class="btn btn-sm btn-primary add-to-wishlist" productID={{Key}}>Add to WishList</button>
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-sm btn-primary add-to-cart" productID={{Key}}>Add to cart</button>
                         </span>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
                         <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
@@ -412,7 +471,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                         <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                         <hr>
-                        <a href="#" class="btn btn-success">Leave a Review</a>
+                        <a  class="btn btn-success">Leave a Review</a>
                     </div>
                 </div>
                 <!-- /.card -->
@@ -451,7 +510,7 @@
             </div>
             <div class="card-footer">
                 <div class="justify-content-center links">
-                    Don't have an account?<a href="#/register">Sign Up</a>
+                    Don't have an account?<a href="?#/register">Sign Up</a>
                 </div>
             </div>
         </div>
@@ -481,7 +540,7 @@
                 <label for="inputAddress">Address</label>
                 <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St Apartment, studio, or floor">
             </div>
-            <button type="submit" class="btn btn-primary submit">Sign in</button>
+            <button class="btn btn-primary submit-btn">Sign in</button>
         </form>
         @RenderBody()
     </script>
