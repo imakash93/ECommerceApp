@@ -19,17 +19,17 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary  fixed-top ">
-        <a class="navbar-brand custom-logo" href="#/dashboard">YOLO</a>
+        <a class="navbar-brand custom-logo" href="#/dashboard"><img src="~/images/logo.png" class="logo-img" width="55"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item active" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <a class="nav-link" href="#/dashboard">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <a class="nav-link" href="#/Products">Products</a>
                 </li>
             </ul>
@@ -37,26 +37,26 @@
                 <div class="clearfix">
                     <div class="header-ctn">
                         <div>
-                            <a data-toggle="modal" data-target="#staticBackdrop">
-                                <i class="fa fa-search"></i>
+                            <a data-toggle="modal" data-target="#staticBackdrop" >
+                                <i class="fa fa-search" data-toggle="collapse" data-target="#navbarSupportedContent"></i>
                                 <span>Search</span>
                             </a>
                         </div>
                         <div>
                             <a href="#/wishlist">
-                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart" data-toggle="collapse" data-target="#navbarSupportedContent"></i>
                                 <span>Your Wishlist</span>
                             </a>
                         </div>
                         <div>
                             <a class="" href="#/cart">
-                                <i class="fa fa-shopping-cart"></i>
+                                <i class="fa fa-shopping-cart" data-toggle="collapse" data-target="#navbarSupportedContent"></i>
                                 <span>Your Cart</span>
                             </a>
                         </div>
                         <div>
                             <a class="" href="#/login">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-user" data-toggle="collapse" data-target="#navbarSupportedContent"></i>
                                 <span>LogOut</span>
                             </a>
                         </div>
@@ -158,7 +158,7 @@
     <script type="text/template" id="dashboard-view-template">
         <div class="section">
             <div class="container">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide" data-interval="5000" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -219,8 +219,10 @@
                                 <img src="images/shop01.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Laptop<br>Collection</h3>
-                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">
+                                    <h3>Laptop<br>Collection</h3>
+                                    Shop now <i class="fa fa-arrow-circle-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -232,8 +234,10 @@
                                 <img src="images/shop03.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Accessories<br>Collection</h3>
-                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">
+                                    <h3>Accessories<br>Collection</h3>
+                                    Shop now <i class="fa fa-arrow-circle-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -245,8 +249,10 @@
                                 <img src="images/shop02.png" alt="">
                             </div>
                             <div class="shop-body">
-                                <h3>Mobile<br>Collection</h3>
-                                <a href="#/Products" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="#/Products" class="cta-btn">
+                                    <h3>Mobile<br>Collection</h3>
+                                    Shop now <i class="fa fa-arrow-circle-right"></i>
+                                </a>
                             </div>
                         </div>
                     </div>

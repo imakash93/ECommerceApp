@@ -8,8 +8,12 @@ a{
 }
 
 .custom-logo {
-  margin-right: 6%;
+    padding:0px;
   margin-left: 1%;
+}
+
+.logo-img {
+    width:55px;
 }
 
 .custom-footer {
