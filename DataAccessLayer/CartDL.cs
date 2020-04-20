@@ -52,5 +52,13 @@ namespace DataAccessLayer
             return true;
 
         }
+
+        public bool DeleteCartDTOs(List<CartDTO> items)
+        {
+            _context.Cart.RemoveRange(items);
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

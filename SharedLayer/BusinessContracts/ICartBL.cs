@@ -9,6 +9,7 @@ namespace SharedLayer.BusinessContracts
         bool SaveCart(CartDTO items);
         bool RemoveCartItems(CartDTO item);
         bool DelCartItems(CartDTO item);
+        bool DeleteCartDTOs(List<CartDTO> items);
 
     }
 }

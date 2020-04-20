@@ -13,5 +13,7 @@ namespace SharedLayer.DataContracts
         bool DelCartItems(CartDTO item);
 
         bool AddToCart(CartDTO items);
+        bool DeleteCartDTOs(List<CartDTO> items);
+
     }
 }

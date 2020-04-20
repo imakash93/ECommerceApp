@@ -42,5 +42,11 @@ namespace BusinessLayer
         {
             return cartDL.DelCartItems(item);
         }
+
+        public bool DeleteCartDTOs(List<CartDTO> items)
+        {
+             cartDL.DeleteCartDTOs(items);
+            return true;
+        }
     }
 }

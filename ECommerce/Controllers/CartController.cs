@@ -44,12 +44,18 @@ namespace ECommerce.Controllers
             return true;
         }
         
-        // DELETE: api/CartDTOes/5
         [HttpPut("DeleteCartDTO")]
         public CartDTO DeleteCartDTO(CartDTO item)
         {
             this.cartBL.DelCartItems(item);
             return item;
+        }
+
+        [HttpPut("DeleteCartDTOs")]
+        public bool DeleteCartDTOs(List<CartDTO> items)
+        {
+            this.cartBL.DeleteCartDTOs(items);
+            return true;
         }
 
 

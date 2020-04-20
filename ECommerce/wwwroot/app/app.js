@@ -43,7 +43,7 @@ var OrdersView = Backbone.View.extend({
 	placeOrder: function (e) {
 		var sum = 0;
 		var totalTime = 0;
-		var user = localStorage.getItem("user");
+		var self = this;
 		jQuery.each(this.collection, function (i, val) {
 			sum += val.price * val.quantity;
 			totalTime += parseInt(val.deliveryTime);
@@ -59,10 +59,26 @@ var OrdersView = Backbone.View.extend({
 			error: function (xhr) {
 			},
 			success: function (result) {
+				$.ajax({
+					url: 'api/Cart/DeleteCartDTOs/',
+					type: 'Put',
+					contentType: 'application/json',
+					data: JSON.stringify(self.collection),
+					dataType: 'text',
+					error: function (xhr) {
+					},
+					success: function (result) {
+						localStorage.removeItem("orders");
+
+					},
+					async: true,
+					processData: false
+				});
 			},
 			async: true,
 			processData: false
 		});
+
 		alert("Order Placed Total Amount : " + sum + " " + "Estimated Delivery time is : " + totalTime);
 	},
 
