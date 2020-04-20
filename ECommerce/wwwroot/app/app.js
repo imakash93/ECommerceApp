@@ -513,6 +513,8 @@ var UserRegistrationView = Backbone.View.extend({
 		this.model.set("email", $("#inputEmail").val());
 		this.model.set("address", $("#inputAddress").val());
 		this.model.set("password", $("#inputPassword").val());
+		this.model.set("confirmPassword", $(".confirmPassword").val());
+			
 		var self = this;
 		var isValid = this.model.isValid();
 		var isDuplicate = false;
@@ -575,11 +577,12 @@ models.WishlistModel = Backbone.Collection.extend({
 models.UserModel = Backbone.Model.extend({
 	url: "api/User/PostUser",
 	defaults: {
-		name: "ded",
-		email: "ede",
-		address: "ed",
-		phone: 1,
-		password: "ed",
+		name: "",
+		email: "",
+		address: "",
+		phone: 0,
+		password: "",
+		confirmPassword: "",
 	},
 	validate: function (attrs, options) {
 		if (!attrs.name) {
@@ -589,16 +592,29 @@ models.UserModel = Backbone.Model.extend({
 			return 'Phone is required';
 		}
 		else if (!attrs.password) {
-			return 'Invalid Password';
-		} else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.password)) {
-			return 'Invalid Password';
+			return 'Password is required';
+		} 
+		else if (!attrs.confirmPassword) {
+			return 'Confirm Password is required';
+		} 
+		else if(attrs.password != attrs.confirmPassword){
+				return 'Password mismatch';
 		}
-		else if (!attrs.email && /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(attrs.email)) {
+		else if (!attrs.email) {
 			return 'Email is required';
-		} else if (!attrs.email) {
-			return 'Email is required';
-		} else if (!attrs.address) {
+		} 
+		else if (!attrs.address) {
 			return 'Address is required';
+		}
+
+
+		if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(attrs.email)){
+			return 'Invalid Email';
+		}
+		// at least one number, one lowercase and one uppercase letter
+		// at least six characters
+		if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(attrs.password)) {
+			return 'Invalid Password';
 		}
 	},
 
