@@ -458,7 +458,9 @@ var LoginView = Backbone.View.extend({
 				else {
 					alert("Invalid Credentials");
 				}
-
+			},
+			error: function (res) {
+				console.log(res);
 			}
 		});
 	},
@@ -629,7 +631,8 @@ models.UserModel = Backbone.Model.extend({
 		}
 		// at least one number, one lowercase and one uppercase letter
 		// at least six characters
-		if (/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(attrs.password)) {
+		var pasStrength = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(attrs.password);
+		if (!pasStrength) {
 			return 'Invalid Password';
 		}
 	},
@@ -647,7 +650,7 @@ models.UserModel = Backbone.Model.extend({
 
 var AppRouter = Backbone.Router.extend({
 	routes: {
-		"": "showLogin",
+		"": "dashboardRoute",
 		"dashboard": "dashboardRoute",
 		"Products": "createProductsRoute",
 		"product/:id": "showProduct",
