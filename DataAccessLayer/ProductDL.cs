@@ -46,6 +46,14 @@ namespace DataAccessLayer
 
             return productDTO;
         }
-     
+
+        public bool updateProducts(List<ProductDTO> items)
+        {
+            productDbContext.Products.UpdateRange(items);
+            productDbContext.SaveChanges();
+            return true;
+        }
+
+
     }
 }

@@ -9,5 +9,8 @@ namespace SharedLayer.BusinessContracts
         IList<ProductDTO> GetProducts();
         ProductDTO GetProduct(int id);
 
+        bool updateProducts(List<CartDTO> items);
+
+
     }
 }

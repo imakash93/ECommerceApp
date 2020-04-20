@@ -39,5 +39,12 @@ namespace ECommerce.Controllers
             return productBL.GetProduct(id);
         }
 
+        [HttpPut("updateProducts")]
+        public bool updateProducts(List<CartDTO> items)
+        {
+            this.productBL.updateProducts(items);
+            return false;
+        }
+
     }
 }

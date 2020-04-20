@@ -49,6 +49,20 @@ var OrdersView = Backbone.View.extend({
 			totalTime += parseInt(val.deliveryTime);
 		});
 		totalTime += 2;
+
+		$.ajax({
+			url: 'api/Products/updateProducts/',
+			type: 'Put',
+			contentType: 'application/json',
+			data: JSON.stringify(this.collection),
+			dataType: 'text',
+			error: function (xhr) {
+			},
+			success: function (result) {
+			},
+			async: true,
+			processData: false
+		});
 		alert("Order Placed Total Amount : " + sum + " " + "Estimated Delivery time is : " + totalTime);
 	},
 

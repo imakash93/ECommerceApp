@@ -10,5 +10,8 @@ namespace SharedLayer.DataContracts
         IList<ProductDTO> GetProducts();
         IList<ProductDTO> GetOrders(int userID);
         ProductDTO GetProduct(int id);
+
+        bool updateProducts(List<ProductDTO> items);
+
     }
 }
