@@ -59,27 +59,34 @@ var OrdersView = Backbone.View.extend({
 			error: function (xhr) {
 			},
 			success: function (result) {
-				$.ajax({
-					url: 'api/Cart/DeleteCartDTOs/',
-					type: 'Put',
-					contentType: 'application/json',
-					data: JSON.stringify(self.collection),
-					dataType: 'text',
-					error: function (xhr) {
-					},
-					success: function (result) {
-						localStorage.removeItem("orders");
-
-					},
-					async: true,
-					processData: false
-				});
+				if (result == "true") {
+					alert("Order Placed Total Amount : " + sum + " " + "Estimated Delivery time is : " + totalTime);
+					$.ajax({
+						url: 'api/Cart/DeleteCartDTOs/',
+						type: 'Put',
+						contentType: 'application/json',
+						data: JSON.stringify(self.collection),
+						dataType: 'text',
+						error: function (xhr) {
+						},
+						success: function (result) {
+							localStorage.removeItem("orders");
+							$('.orders-placed').empty();
+						},
+						async: true,
+						processData: false
+					});
+				}
+				else {
+					alert("Invalid Quantity");
+					localStorage.removeItem("orders");
+					$('.orders-placed').empty();
+				}
 			},
 			async: true,
 			processData: false
 		});
 
-		alert("Order Placed Total Amount : " + sum + " " + "Estimated Delivery time is : " + totalTime);
 	},
 
 	initialize: function () {

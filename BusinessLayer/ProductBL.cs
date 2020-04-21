@@ -34,25 +34,35 @@ namespace BusinessLayer
         public bool updateProducts(List<CartDTO> items)
         {
             var products =  this.productDL.GetProducts();
+            var result = true;
 
             List<ProductDTO> updatedProducts = new List<ProductDTO>();
 
             foreach (CartDTO cart in items) 
             {
-                foreach (ProductDTO product in products) 
+                foreach (ProductDTO product in products)  
                 {
                     if(product.Key == cart.ProductId)
                     {
                         var updatedQuantity = System.Int32.Parse(product.Quantity) - cart.Quantity;
-                        product.Quantity = updatedQuantity.ToString();
-                        updatedProducts.Add(product);
+                        if (cart.Quantity > 0 && updatedQuantity >= 0)
+                        {
+                            product.Quantity = updatedQuantity.ToString();
+                            updatedProducts.Add(product);
+                        }
+                        else {
+                            result = false;
+                        }
                     }
                 }
             }
 
-            this.productDL.updateProducts(updatedProducts);
+            if (result)
+            {
+                this.productDL.updateProducts(updatedProducts);
+            }
 
-            return true;
+            return result;
         }
     }
 }

@@ -42,8 +42,8 @@ namespace ECommerce.Controllers
         [HttpPut("updateProducts")]
         public bool updateProducts(List<CartDTO> items)
         {
-            this.productBL.updateProducts(items);
-            return false;
+            return this.productBL.updateProducts(items);
+            
         }
 
     }
